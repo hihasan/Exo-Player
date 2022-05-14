@@ -75,11 +75,9 @@ dependencies {
     implementation "androidx.room:room-ktx:2.4.2"
     kapt "androidx.room:room-compiler:2.4.2"
 
-    implementation 'com.github.hihasan:Boat-BottomBar:1.0'
-
     // Image Loading library Coil
     implementation "io.coil-kt:coil:0.13.0"
-    
+
     def lottieVersion = "4.1.0"
     implementation "com.airbnb.android:lottie:$lottieVersion"
 
