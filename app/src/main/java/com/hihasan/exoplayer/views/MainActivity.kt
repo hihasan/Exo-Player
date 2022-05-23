@@ -4,7 +4,10 @@ import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -25,7 +28,7 @@ class MainActivity : BaseActivity() {
 
     private val permission = false
     private var storage: File? = null
-    private lateinit var storagePaths: Array<String>
+    private var storagePaths: Array<String> = emptyArray()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +39,13 @@ class MainActivity : BaseActivity() {
         setSupportActionBar(binding.toolbar)
 
         checkStorageAccessPermission()
+
+        storagePaths = StorageUtil.getStorageDirectories(this)
+        for (path in storagePaths) {
+            storage = File(path)
+            LoadFiles.load_Directory_Files(storage!!)
+            Log.d("FILE PATH", storagePaths.toString())
+        }
 
     }
 
@@ -83,7 +93,9 @@ class MainActivity : BaseActivity() {
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String?>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == 1) {
-            if (grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+//                storagePaths = StorageUtil.getStorageDirectories(this)
+//                LoadFiles.load_Directory_Files()
                 //load data here
                 //for first time data will be loaded here
                 //then it will be loaded in splash screen
@@ -92,13 +104,14 @@ class MainActivity : BaseActivity() {
                 for (path in storagePaths) {
                     storage = File(path)
                     LoadFiles.load_Directory_Files(storage!!)
+                    Log.d("FILE PATH", storagePaths.toString())
                 }
                // recyclerViewAdapter.notifyDataSetChanged()
             }
         }
     }
 
-    @Deprecated("Deprecated in Java")
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         when (requestCode) {
