@@ -129,7 +129,7 @@ open class BaseActivity : AppCompatActivity() {
             .show()
     }
 
-    open fun showWait(msg: String?, context: Context?) {
+    open fun showWait(msg: String?, context: Context) {
         dialogUtil = DialogUtil(context)
         dialogUtil!!.showProgressDialog(msg)
     }
@@ -151,66 +151,6 @@ open class BaseActivity : AppCompatActivity() {
         }
     }
 
-    open fun showCustomDialog(
-        title: String,
-        activity: Activity,
-        dialogActionListener: DialogActionListener
-    ) {
-
-
-        val dialog = Dialog(this, R.style.WideDialog)
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        dialog.setCancelable(false)
-        dialog.setContentView(R.layout.logout_dialog_layout)
-        val dialogTitle = dialog.findViewById(R.id.logout_title_tv) as TextView
-        dialogTitle.text = title
-        val yesBtn = dialog.findViewById(R.id.dialog_yes_btn) as Button
-        val noBtn = dialog.findViewById(R.id.dialog_no_btn) as Button
-        yesBtn.setOnClickListener {
-            dialogActionListener.dialogAction(true)
-            dialog.dismiss()
-        }
-        noBtn.setOnClickListener {
-            dialogActionListener.dialogAction(false)
-            dialog.dismiss()
-        }
-        dialog.show()
-
-    }
-    fun downloadFromUrl(
-        url: String,
-        title: String,
-        description: String,
-        activity: Activity,
-        root: View,
-        downloadStatusListener: (Boolean) -> Unit
-    ) {
-        val request = DownloadManager.Request(Uri.parse(url))
-            .setTitle(title)
-            .setDescription(description)
-            .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
-            .setAllowedOverMetered(true)
-        val dm = getSystemService(DOWNLOAD_SERVICE) as DownloadManager
-
-        downloadInvoiceId = dm.enqueue(request)
-
-        var br = object : BroadcastReceiver() {
-            override fun onReceive(context: Context?, intent: Intent?) {
-                var id: Long? = intent?.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1)
-
-                if (id == downloadInvoiceId) {
-                    showSnackBar(
-                        activity,
-                        "Invoice download completed",
-                        root
-                    )
-                    downloadStatusListener(true)
-                }
-            }
-
-        }
-        registerReceiver(br, IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE))
-    }
     open fun setLocal(activity: Activity, langCode: String) {
         val context: Context =
             LocaleContextWrapper.wrap(activity, langCode)
@@ -246,13 +186,6 @@ open class BaseActivity : AppCompatActivity() {
     }
 
 
-    open fun showCustomLoadingView(context: Context, title: String, param: Boolean) {
-        if (param) {
-            CustomLoadingDialog(context, title).show()
-        } else {
-            CustomLoadingDialog(context, title).dismiss()
-        }
-    }
 
     open fun getPathFromUri(context: Context, uri: Uri): String? {
         val isKitKat = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT
@@ -387,39 +320,5 @@ open class BaseActivity : AppCompatActivity() {
             bottomSheetDialog.show(supportFragmentManager, tag)
         }
     }
-    fun showSnackBar(context: Context, message: String,view: View){
-        val snackbar = Snackbar.make(view,message, Snackbar.LENGTH_SHORT)
-        snackbar.setBackgroundTint(ContextCompat.getColor(context,R.color.colorPrimary))
-        snackbar.setTextColor(ContextCompat.getColor(context,R.color.white))
-        val textView = snackbar.view.findViewById(R.id.snackbar_action) as TextView
-        textView.isAllCaps = false
-        val imgClose = ImageView(context)
-        imgClose.scaleType = ImageView.ScaleType.CENTER_INSIDE
-        val layImageParams = ViewGroup.LayoutParams(
-            ViewGroup.LayoutParams.WRAP_CONTENT,
-            ViewGroup.LayoutParams.MATCH_PARENT
-        )
-        imgClose.setImageResource(R.drawable.ic_cross_primary)
-        (textView.parent as SnackbarContentLayout).addView(imgClose, layImageParams)
-        imgClose.setOnClickListener { snackbar.dismiss() }
-        snackbar.show()
-    }
 
-    fun showSnackBarAlert(context: Context, message: String,view: View){
-        val snackbar = Snackbar.make(view,message, Snackbar.LENGTH_SHORT)
-        snackbar.setBackgroundTint(ContextCompat.getColor(context,R.color.colorRed))
-        snackbar.setTextColor(ContextCompat.getColor(context,R.color.white))
-        val textView = snackbar.view.findViewById(R.id.snackbar_action) as TextView
-        textView.isAllCaps = false
-        val imgClose = ImageView(context)
-        imgClose.scaleType = ImageView.ScaleType.CENTER_INSIDE
-        val layImageParams = ViewGroup.LayoutParams(
-            ViewGroup.LayoutParams.WRAP_CONTENT,
-            ViewGroup.LayoutParams.MATCH_PARENT
-        )
-        imgClose.setImageResource(R.drawable.ic_cross_primary)
-        (textView.parent as SnackbarContentLayout).addView(imgClose, layImageParams)
-        imgClose.setOnClickListener { snackbar.dismiss() }
-        snackbar.show()
-    }
 }

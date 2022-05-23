@@ -90,15 +90,6 @@ open class BaseFragment : Fragment() {
             .commit()
     }
 
-    fun replaceFragment(fragment: Fragment?, newid: String?, oldId: String?, resId: Int) {
-        Singleton.getInstance().whichFragmentItIs = fragment
-        fragmentManager
-            ?.beginTransaction()
-            ?.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right)
-            ?.replace(resId, fragment!!, newid)
-            ?.addToBackStack(oldId)
-            ?.commit()
-    }
     fun showTurnOnInternetAlartDialog(){
         val alertDialogBuilder: MaterialAlertDialogBuilder = MaterialAlertDialogBuilder(requireContext())
         alertDialogBuilder.setMessage("Please check your internet connection or turn on Online")
@@ -188,85 +179,6 @@ open class BaseFragment : Fragment() {
         }
     }
 
-    fun showSnackBar(context: Context, message: String,view: View){
-        val snackbar = Snackbar.make(view,message, Snackbar.LENGTH_SHORT)
-        snackbar.setBackgroundTint(ContextCompat.getColor(context,R.color.colorPrimary))
-        snackbar.setTextColor(ContextCompat.getColor(context,R.color.white))
-        val textView = snackbar.view.findViewById(R.id.snackbar_action) as TextView
-        textView.isAllCaps = false
-        val imgClose = ImageView(context)
-        imgClose.scaleType = ImageView.ScaleType.CENTER_INSIDE
-        val layImageParams = ViewGroup.LayoutParams(
-            ViewGroup.LayoutParams.WRAP_CONTENT,
-            ViewGroup.LayoutParams.MATCH_PARENT
-        )
-        imgClose.setImageResource(R.drawable.ic_cross_primary)
-        (textView.parent as SnackbarContentLayout).addView(imgClose, layImageParams)
-        imgClose.setOnClickListener { snackbar.dismiss() }
-        snackbar.show()
-    }
-    fun showSnackBarAlert(context: Context, message: String,view: View){
-        val snackbar = Snackbar.make(view,message, Snackbar.LENGTH_SHORT)
-        snackbar.setBackgroundTint(ContextCompat.getColor(context,R.color.colorRed))
-        snackbar.setTextColor(ContextCompat.getColor(context,R.color.white))
-        val textView = snackbar.view.findViewById(R.id.snackbar_action) as TextView
-        textView.isAllCaps = false
-        val imgClose = ImageView(context)
-        imgClose.scaleType = ImageView.ScaleType.CENTER_INSIDE
-        val layImageParams = ViewGroup.LayoutParams(
-            ViewGroup.LayoutParams.WRAP_CONTENT,
-            ViewGroup.LayoutParams.MATCH_PARENT
-        )
-        imgClose.setImageResource(R.drawable.ic_cross_primary)
-        (textView.parent as SnackbarContentLayout).addView(imgClose, layImageParams)
-        imgClose.setOnClickListener { snackbar.dismiss() }
-        snackbar.show()
-    }
-
-    open fun reloadPage() {}
-
-    open fun showCustomDialog(title: String, activity: Activity?, dialogActionListener: DialogActionListener,
-                              okBtnEnable: Boolean) {
-
-        val dialog = context?.let { Dialog(it, R.style.WideDialog) }
-        dialog!!.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        dialog.setCancelable(false)
-        dialog.setContentView(R.layout.logout_dialog_layout)
-        val dialogTitle = dialog.findViewById(R.id.logout_title_tv) as TextView
-        dialogTitle.text = title
-        val yesBtn = dialog.findViewById(R.id.dialog_yes_btn) as Button
-        val noBtn = dialog.findViewById(R.id.dialog_no_btn) as Button
-//        val okBtn = dialog.findViewById(R.id.dialog_ok_btn) as Button
-
-        if (okBtnEnable){
-//            okBtn.visibility = View.VISIBLE
-            yesBtn.visibility = View.GONE
-            noBtn.visibility = View.GONE
-        }else{
-//            okBtn.visibility = View.GONE
-            yesBtn.visibility = View.VISIBLE
-            noBtn.visibility = View.VISIBLE
-        }
-
-        yesBtn.setOnClickListener {
-            dialogActionListener.dialogAction(true)
-            dialog.dismiss()
-        }
-        noBtn.setOnClickListener {
-            dialogActionListener.dialogAction(false)
-            dialog.dismiss()
-        }
-
-//        okBtn.setOnClickListener {
-//            dialogActionListener.dialogAction(false)
-//            dialog.dismiss()
-//        }
-
-
-        dialog.show()
-
-    }
-
 
     open fun showWait(msg: String?, context: Context?) {
         dialogUtil = DialogUtil(requireContext())
@@ -309,17 +221,6 @@ open class BaseFragment : Fragment() {
             }
         }
         return path
-    }
-
-    open fun showCustomLoadingView(context: Context, title: String){
-
-        val dialog: Dialog = CustomLoadingDialog(context, title)
-//        if(param){
-//            CustomLoadingDialog(context,title)
-//        } else{
-//            CustomLoadingDialog(context,title).dismiss()
-//        }
-
     }
 
     open fun getPathFromUri(context: Context, uri: Uri): String? {

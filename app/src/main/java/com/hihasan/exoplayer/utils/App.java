@@ -7,6 +7,9 @@ import android.content.Context;
 import android.content.IntentFilter;
 import android.content.res.Resources;
 
+import dagger.hilt.android.HiltAndroidApp;
+
+@HiltAndroidApp
 public class App extends Application {
     private static Context context;
     private static final String WIFI_STATE_CHANGE_ACTION = "android.net.wifi.WIFI_STATE_CHANGED";

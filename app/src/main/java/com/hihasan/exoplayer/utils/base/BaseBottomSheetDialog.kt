@@ -44,41 +44,5 @@ open class BaseBottomSheetDialog : BottomSheetDialogFragment(){
             val re = Regex("[^A-Za-z0-9 ]")
             return re.replace(dirtyString, "")
         }
-
-        fun showSnackBar(context: Context, message: String,view: View){
-            val snackbar = Snackbar.make(view,message, Snackbar.LENGTH_SHORT)
-            snackbar.setBackgroundTint(ContextCompat.getColor(context, R.color.colorPrimary))
-            snackbar.setTextColor(ContextCompat.getColor(context,R.color.white))
-            val textView = snackbar.view.findViewById(R.id.snackbar_action) as TextView
-            textView.isAllCaps = false
-            val imgClose = ImageView(context)
-            imgClose.scaleType = ImageView.ScaleType.CENTER_INSIDE
-            val layImageParams = ViewGroup.LayoutParams(
-                ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.MATCH_PARENT
-            )
-            imgClose.setImageResource(R.drawable.ic_cross_primary)
-            (textView.parent as SnackbarContentLayout).addView(imgClose, layImageParams)
-            imgClose.setOnClickListener { snackbar.dismiss() }
-            snackbar.show()
-        }
-
-        fun showSnackBarAlert(context: Context, message: String,view: View){
-            val snackbar = Snackbar.make(view,message, Snackbar.LENGTH_SHORT)
-            snackbar.setBackgroundTint(ContextCompat.getColor(context,R.color.colorRed))
-            snackbar.setTextColor(ContextCompat.getColor(context,R.color.white))
-            val textView = snackbar.view.findViewById(R.id.snackbar_action) as TextView
-            textView.isAllCaps = false
-            val imgClose = ImageView(context)
-            imgClose.scaleType = ImageView.ScaleType.CENTER_INSIDE
-            val layImageParams = ViewGroup.LayoutParams(
-                ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.MATCH_PARENT
-            )
-            imgClose.setImageResource(R.drawable.ic_cross_primary)
-            (textView.parent as SnackbarContentLayout).addView(imgClose, layImageParams)
-            imgClose.setOnClickListener { snackbar.dismiss() }
-            snackbar.show()
-        }
     }
 }
