@@ -1,17 +1,15 @@
-package com.hihasan.exoplayer
+package com.hihasan.exoplayer.views
 
 import android.os.Bundle
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
-import android.view.MenuItem
+import com.hihasan.exoplayer.R
 import com.hihasan.exoplayer.databinding.ActivityMainBinding
+import com.hihasan.exoplayer.utils.base.BaseActivity
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding

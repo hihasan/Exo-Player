@@ -1,7 +1,6 @@
 package com.hihasan.exoplayer.utils.base
 
 import android.app.Activity
-import android.app.Dialog
 import android.app.DownloadManager
 import android.content.*
 import android.database.Cursor
@@ -12,27 +11,17 @@ import android.os.Environment
 import android.provider.DocumentsContract
 import android.provider.MediaStore
 import android.view.View
-import android.view.ViewGroup
-import android.view.Window
 import android.view.inputmethod.InputMethodManager
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.core.content.ContextCompat
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.room.Room
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.google.android.material.snackbar.Snackbar
-import com.google.android.material.snackbar.SnackbarContentLayout
-import com.hihasan.exoplayer.MainActivity
-import com.hihasan.exoplayer.R
+import com.hihasan.exoplayer.views.MainActivity
 import com.hihasan.exoplayer.constant.ApplicationConstants.EXO_PLAYER
 import com.hihasan.exoplayer.constant.DatabaseConstants
-import com.hihasan.exoplayer.listeners.DialogActionListener
 import com.hihasan.exoplayer.utils.App
 import com.hihasan.exoplayer.utils.DialogUtil
 import com.hihasan.exoplayer.utils.LocaleContextWrapper
