@@ -1,7 +1,6 @@
 package com.hihasan.exoplayer.utils.base
 
 import android.app.Activity
-import android.app.Dialog
 import android.app.DownloadManager
 import android.content.ContentUris
 import android.content.Context
@@ -18,25 +17,17 @@ import android.provider.DocumentsContract
 import android.provider.MediaStore
 import android.util.DisplayMetrics
 import android.view.View
-import android.view.ViewGroup
-import android.view.Window
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatEditText
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.room.Room
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.android.material.snackbar.Snackbar
-import com.google.android.material.snackbar.SnackbarContentLayout
-import com.hihasan.exoplayer.R
 import com.hihasan.exoplayer.constant.ApplicationConstants.EXO_PLAYER
 import com.hihasan.exoplayer.constant.DatabaseConstants
-import com.hihasan.exoplayer.listeners.DialogActionListener
 import com.hihasan.exoplayer.utils.DialogUtil
 import com.hihasan.exoplayer.utils.LocaleContextWrapper
-import com.hihasan.exoplayer.utils.Singleton
 import java.io.ByteArrayOutputStream
 import java.io.File
 

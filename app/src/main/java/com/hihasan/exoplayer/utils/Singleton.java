@@ -4,8 +4,6 @@ import android.content.Context;
 
 import androidx.fragment.app.Fragment;
 
-import java.util.ArrayList;
-
 public class Singleton {
 
     private Context context;
